@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Klinkby.Calendar.DataCommand" Collapsed="true">
+    <Position X="11" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAgAAAAAACAAAAAAAAAg=</HashCode>
+      <FileName>DataCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Klinkby.Calendar.SlotEvents">
+    <Position X="3" Y="2.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAKAAAAAAAAAAAIAAAAAAAAAAAAAAAAAQBA=</HashCode>
+      <FileName>SlotEvents.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="SortedEvents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Klinkby.Calendar.SlotPosition" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAwAAAAAgBAAAEAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SlotPosition.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="Klinkby.Calendar.EventWrapper" Collapsed="true">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAFAAAAAAABAAAgEgAIgAEAAQgAoAIAAAAEAAAEAAiA=</HashCode>
+      <FileName>EventWrapper.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Event" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Struct>
+  <Interface Name="Klinkby.Calendar.IDataCommand" Collapsed="true">
+    <Position X="9.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDataCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Verb" />
+      <Property Name="Event" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="Klinkby.Calendar.IEvent">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IEvent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Klinkby.Calendar.ISlotPosition">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAgBAAAEAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISlotPosition.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Klinkby.Calendar.DataCommandVerb">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataCommandType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
