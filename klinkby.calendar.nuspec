@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Klinkby.Calendar</id>
+    <version>1.0.0.0</version>
+    <title>Klinkby.Calendar</title>
+    <authors>Mads Breusch Klinkby</authors>
+    <summary>General logic for handling time slots in a calendar.</summary>
+    <description>General logic for handling time slots in a calendar.</description>
+    <copyright>MIT license</copyright>
+    <projectUrl>https://github.com/klinkby/calendar</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/klinkby/calendar/master/license.txt</licenseUrl>
+    <tags>klinkby calendar slot event</tags>
+  </metadata>
+  <files>
+    <file src="Klinkby.Calendar\bin\release\klinkby.calendar.dll" target="lib\net40\klinkby.calendar.dll"/>
+    <file src="Klinkby.Calendar\bin\release\klinkby.calendar.pdb" target="lib\net40\klinkby.calendar.pdb"/>
+    <file src="Klinkby.Calendar\bin\release\klinkby.calendar.xml" target="lib\net40\klinkby.calendar.xml"/>
+  </files>
+</package>
