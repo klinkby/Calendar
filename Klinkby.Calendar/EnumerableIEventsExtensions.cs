@@ -1,33 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Klinkby.Calendar
 {
-    public class SlotEvents
+    /// <summary>Extension methods for an ascending ordered <see cref="T:IEnumerable`1"/> 
+    /// using <see cref="IEvent"/> as generic type parameter.</summary>
+    public static class EnumerableIEventsExtensions
     {
-        readonly IEnumerable<IEvent> _sortedEvents;
-
-        public SlotEvents(IEnumerable<IEvent> sortedEvents) 
+        /// <summary>
+        /// Get the commands needed for inserting a new time slot into an existing ascending ordered collection.
+        /// Will join adjacent events and prevent overlapping.
+        /// </summary>
+        /// <typeparam name="T"><see cref="IEvent"/> implementation</typeparam>
+        /// <param name="orderedEvents">Collection of ascending ordered events.</param>
+        /// <param name="evt">Event to add</param>
+        /// <returns>Collection of <see cref="DataCommand"/>.</returns>
+        public static IEnumerable<IDataCommand> AddEvent<T>(this IEnumerable<T> orderedEvents, IEvent evt)
+            where T: IEvent
         {
-            if (null == sortedEvents) throw new ArgumentNullException("sortedEvents");
-            _sortedEvents = sortedEvents;
-        }
-
-        public IEnumerable<IEvent> SortedEvents
-        {
-            get
-            {
-                return _sortedEvents;
-            }
-        }
-
-        public IEnumerable<IDataCommand> AddSlot(IEvent evt)
-        {
-            var position = ResolveSlotPosition(evt);
+            var position = ResolvePosition(orderedEvents, evt);
             // does the new slot conver entire slots (C in Y)
             // tested by OverlapsCompletely()
             foreach (var e in position.OverlapsCompletely)
@@ -71,9 +63,18 @@ namespace Klinkby.Calendar
             yield return new DataCommand(evt, DataCommandVerb.Insert);
         }
 
-        public IEnumerable<IDataCommand> RemoveSlot(IEvent evt)
+        /// <summary>
+        /// Get the commands needed for removing time slot from an existing ascending ordered collection.
+        /// Will clip existing events if they overlap the given time slot.
+        /// </summary>
+        /// <typeparam name="T"><see cref="IEvent"/> implementation</typeparam>
+        /// <param name="orderedEvents">Collection of ascending ordered events.</param>
+        /// <param name="evt">Time slot to remove</param>
+        /// <returns>Collection of <see cref="DataCommand"/>.</returns>
+        public static IEnumerable<IDataCommand> RemoveEvent<T>(this IEnumerable<T> orderedEvents, IEvent evt)
+            where T : IEvent
         {
-            var position = ResolveSlotPosition(evt);
+            var position = ResolvePosition(orderedEvents, evt);
             var overlapsEndOf = position.OverlapsEndOf;
             var overlapsStartOf = position.OverlapsStartOf;
             // does this slot conver entire slots (C in Y)
@@ -103,14 +104,19 @@ namespace Klinkby.Calendar
         }
 
         /// <summary>
-        /// Does a sanity check on the SortedEvents property. Throws InvalidOperationException if it is not ok.
-        /// 
+        /// Does a sanity check on the events to ensure none are null, have positive durations, are ordered ascending and does not overlap.
+        /// Throws on first error found.
         /// </summary>
-        public void Validate()
+        /// <typeparam name="T"><see cref="IEvent"/> implementation</typeparam>
+        /// <param name="orderedEvents">Collection of ascending ordered events.</param>
+        /// <exception cref="InvalidOperationException">Thrown if there is an issue with the event list.</exception>
+        public static void Validate<T>(this IEnumerable<T> orderedEvents)
+            where T: IEvent
         {
+            if (null == orderedEvents) throw new ArgumentNullException("orderedEvents");
             DateTime lastEnd = DateTime.MinValue;
             int i = 0;
-            foreach (var item in _sortedEvents)
+            foreach (var item in orderedEvents)
             {
                 if (null == item)
                 {
@@ -129,11 +135,21 @@ namespace Klinkby.Calendar
             }
         }
 
-        public ISlotPosition ResolveSlotPosition(IEvent newEvent)
+        /// <summary>
+        /// Enumerates the orderedEvents to determine how evt fits in.
+        /// </summary>
+        /// <typeparam name="T"><see cref="IEvent"/> implementation</typeparam>
+        /// <param name="orderedEvents">Collection of ascending ordered events.</param>
+        /// <param name="evt">The time slot to fit in.</param>
+        /// <returns>See <see cref="IEventPosition"/></returns>
+        public static IEventPosition ResolvePosition<T>(this IEnumerable<T> orderedEvents, IEvent evt)
+            where T: IEvent
         {
-            var newItem = new EventWrapper(newEvent);
-            var result = new SlotPosition();
-            using (var enumerator = SortedEvents.GetEnumerator())
+            if (null == orderedEvents) throw new ArgumentNullException("orderedEvents");
+            if (null == evt) throw new ArgumentNullException("newEvent");
+            var newItem = new EventWrapper(evt);
+            var result = new EventPosition();
+            using (var enumerator = orderedEvents.GetEnumerator())
             {
                 /*
 

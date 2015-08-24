@@ -29,9 +29,8 @@ namespace Klinkby.Calendar.Test
             var bStart = events[1].Start;
             DateTime dEnd = events[3].End;
             var addingX = new TestEvent("X") { Start = new DateTime(2015, 1, 1, 2, 30, 0), Duration = TimeSpan.FromMinutes(180) };
-            var slots = new SlotEvents(events);
 
-            var pos = slots.ResolveSlotPosition(addingX);
+            var pos = events.ResolvePosition(addingX);
             Assert.IsNull(pos.OverlapsEndOf);
             Assert.IsNotNull(pos.StartsAdjacentTo);
             Assert.IsNull(pos.EndsAdjacentTo);
@@ -39,7 +38,7 @@ namespace Klinkby.Calendar.Test
             Assert.AreEqual(1, pos.OverlapsCompletely.Count());
             Assert.AreEqual(events[2], pos.OverlapsCompletely.First());
 
-            var commands = slots.AddSlot(addingX).ToArray();
+            var commands = events.AddEvent(addingX).ToArray();
             Assert.AreEqual(3, commands.Length);
             Assert.AreEqual(events[2], commands[0].Event);
             Assert.AreEqual(DataCommandVerb.Delete, commands[0].Verb);
@@ -57,16 +56,15 @@ namespace Klinkby.Calendar.Test
             var events = CreateEvents();
             DateTime cEnd = events[2].End;
             var addingX = new TestEvent("X") { Start = new DateTime(2015, 1, 1, 2, 30, 0), Duration = TimeSpan.FromMinutes(45) };
-            var slots = new SlotEvents(events);
 
-            var pos = slots.ResolveSlotPosition(addingX);
+            var pos = events.ResolvePosition(addingX);
             Assert.AreEqual(events[1], pos.StartsAdjacentTo);
             Assert.AreEqual(events[2], pos.OverlapsStartOf);
             Assert.IsNull(pos.OverlapsEndOf);
             Assert.IsNull(pos.EndsAdjacentTo);
             Assert.IsFalse(pos.OverlapsCompletely.Any());
 
-            var commands = slots.AddSlot(addingX).ToArray();
+            var commands = events.AddEvent(addingX).ToArray();
             Assert.AreEqual(2, commands.Length);
             Assert.AreEqual(events[2], commands[0].Event);
             Assert.AreEqual(DataCommandVerb.Delete, commands[0].Verb);
@@ -82,16 +80,15 @@ namespace Klinkby.Calendar.Test
             var events = CreateEvents();
             DateTime cEnd = events[2].End;
             var addingX = new TestEvent("X") { Start = new DateTime(2015, 1, 1, 2, 45, 0), Duration = TimeSpan.FromMinutes(15) };
-            var slots = new SlotEvents(events);
 
-            var pos = slots.ResolveSlotPosition(addingX);
+            var pos = events.ResolvePosition(addingX);
             Assert.AreEqual(events[2], pos.EndsAdjacentTo);
             Assert.IsNull(pos.OverlapsEndOf);
             Assert.IsNull(pos.StartsAdjacentTo);
             Assert.IsNull(pos.OverlapsStartOf);
             Assert.IsFalse(pos.OverlapsCompletely.Any());
 
-            var commands = slots.AddSlot(addingX).ToArray();
+            var commands = events.AddEvent(addingX).ToArray();
             Assert.AreEqual(1, commands.Length);
             Assert.AreEqual(events[2], commands[0].Event);
             Assert.AreEqual(DataCommandVerb.Update, commands[0].Verb);
@@ -105,16 +102,15 @@ namespace Klinkby.Calendar.Test
             var events = CreateEvents();
             var bStart = events[1].Start;
             var addingX = new TestEvent("X") { Start = new DateTime(2015, 1, 1, 1, 45, 0), Duration = TimeSpan.FromHours(1) };
-            var slots = new SlotEvents(events);
 
-            var pos = slots.ResolveSlotPosition(addingX);
+            var pos = events.ResolvePosition(addingX);
             Assert.AreEqual(events[1], pos.OverlapsEndOf);
             Assert.IsNull(pos.StartsAdjacentTo);
             Assert.IsNull(pos.EndsAdjacentTo);
             Assert.IsNull(pos.OverlapsStartOf);
             Assert.IsFalse(pos.OverlapsCompletely.Any());
 
-            var commands = slots.AddSlot(addingX).ToArray();
+            var commands = events.AddEvent(addingX).ToArray();
             Assert.AreEqual(1, commands.Length);
             Assert.AreEqual(events[1], commands[0].Event);
             Assert.AreEqual(DataCommandVerb.Update, commands[0].Verb);
@@ -128,16 +124,15 @@ namespace Klinkby.Calendar.Test
             var events = CreateEvents();
             var bStart = events[1].Start;
             var addingX = new TestEvent("X") { Start = new DateTime(2015, 1, 1, 4, 15, 0), Duration = TimeSpan.FromMinutes(1) };
-            var slots = new SlotEvents(events);
 
-            var pos = slots.ResolveSlotPosition(addingX);
+            var pos = events.ResolvePosition(addingX);
             Assert.IsNull(pos.OverlapsEndOf);
             Assert.IsNull(pos.StartsAdjacentTo);
             Assert.IsNull(pos.EndsAdjacentTo);
             Assert.IsNull(pos.OverlapsStartOf);
             Assert.IsFalse(pos.OverlapsCompletely.Any());
 
-            var commands = slots.AddSlot(addingX).ToArray();
+            var commands = events.AddEvent(addingX).ToArray();
             Assert.AreEqual(1, commands.Length);
             Assert.AreEqual(addingX, commands[0].Event);
             Assert.AreEqual(DataCommandVerb.Insert, commands[0].Verb);

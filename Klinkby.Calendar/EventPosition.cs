@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Klinkby.Calendar
 {
-    internal class SlotPosition : ISlotPosition
+    /// <summary>Basic implementation of <see cref="IEventPosition"/>.</summary>
+    internal class EventPosition : IEventPosition
     {
-        public SlotPosition()
+        const int InitialQueueCapacity = 5;
+
+        internal EventPosition()
         {
-            OverlapsCompletely = new Queue<IEvent>(10);
+            OverlapsCompletely = new Queue<IEvent>(InitialQueueCapacity);
         }
 
         public IEvent EndsAdjacentTo
@@ -19,7 +18,7 @@ namespace Klinkby.Calendar
             internal set;
         }
 
-        IEnumerable<IEvent> ISlotPosition.OverlapsCompletely
+        IEnumerable<IEvent> IEventPosition.OverlapsCompletely
         {
             get { return OverlapsCompletely; }
         }

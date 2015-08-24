@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Klinkby.Calendar
+﻿namespace Klinkby.Calendar
 {
-    internal class DataCommand : IDataCommand
+    /// <summary>Basic implementation of an <see cref="IDataCommand"/></summary>
+    internal sealed class DataCommand : IDataCommand
     {
         readonly IEvent _event;
         readonly DataCommandVerb _verb;
 
-        public DataCommand(IEvent e, DataCommandVerb verb)
+        internal DataCommand(IEvent e, DataCommandVerb verb)
         {
             _event = e;
             _verb = verb;    

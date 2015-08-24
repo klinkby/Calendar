@@ -12,8 +12,7 @@ namespace Klinkby.Calendar.Test
         public void AllOk()
         {
             var events = AddSlot.CreateEvents();
-            var slots = new SlotEvents(events);
-            slots.Validate();
+            events.Validate();
         }
 
         [TestMethod, ExpectedException(typeof(InvalidOperationException))]
@@ -27,8 +26,7 @@ namespace Klinkby.Calendar.Test
                 new TestEvent("D") { Start = new DateTime(2015, 1, 1, 5, 0, 0), Duration = TimeSpan.FromHours(1) }, // D
                 new TestEvent("E") { Start = new DateTime(2015, 1, 1, 7, 0, 0), Duration = TimeSpan.FromHours(1) } // E
             };
-            var slots = new SlotEvents(events);
-            slots.Validate();
+            events.Validate();
         }
 
         [TestMethod, ExpectedException(typeof(InvalidOperationException))]
@@ -42,8 +40,7 @@ namespace Klinkby.Calendar.Test
                 new TestEvent("D") { Start = new DateTime(2015, 1, 1, 5, 0, 0), Duration = TimeSpan.FromHours(1) }, // D
                 new TestEvent("E") { Start = new DateTime(2015, 1, 1, 7, 0, 0), Duration = TimeSpan.FromHours(1) } // E
             };
-            var slots = new SlotEvents(events);
-            slots.Validate();
+            events.Validate();
         }
 
         [TestMethod, ExpectedException(typeof(InvalidOperationException))]
@@ -57,8 +54,7 @@ namespace Klinkby.Calendar.Test
                 new TestEvent("D") { Start = new DateTime(2015, 1, 1, 5, 0, 0), Duration = TimeSpan.FromHours(1) }, // D
                 new TestEvent("E") { Start = new DateTime(2015, 1, 1, 7, 0, 0), Duration = TimeSpan.FromHours(1) } // E
             };
-            var slots = new SlotEvents(events);
-            slots.Validate();
+            events.Validate();
         }
     }
 }
