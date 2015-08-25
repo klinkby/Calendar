@@ -17,6 +17,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Mads Breusch Klinkby 2015")]
 [assembly: NeutralResourcesLanguage("en-US")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.1")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
